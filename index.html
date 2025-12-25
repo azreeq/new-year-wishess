@@ -9,28 +9,41 @@
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(120deg, #020617, #0f172a);
       color: #e5e7eb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin: 0;
       height: 100vh;
       overflow: hidden;
     }
 
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-20px);
+    }
+
     .card {
-      background: rgba(2, 6, 23, 0.9);
-      padding: 32px;
-      border-radius: 16px;
+      background: rgba(2, 6, 23, 0.92);
+      padding: 36px;
+      border-radius: 18px;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       text-align: center;
-      box-shadow: 0 0 40px rgba(56,189,248,0.15);
-      animation: floatIn 1.2s ease;
+      box-shadow: 0 0 50px rgba(56,189,248,0.15);
+      animation: floatIn 1.4s ease;
     }
 
     @keyframes floatIn {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(40px);
       }
       to {
         opacity: 1;
@@ -42,11 +55,15 @@
       margin-bottom: 8px;
     }
 
+    p {
+      opacity: 0.85;
+    }
+
     input, button {
       width: 100%;
       padding: 12px;
-      margin-top: 12px;
-      border-radius: 8px;
+      margin-top: 14px;
+      border-radius: 10px;
       border: none;
       font-size: 16px;
     }
@@ -61,29 +78,57 @@
       background: #0ea5e9;
     }
 
-    .message {
-      margin-top: 24px;
-      font-size: 16px;
-      line-height: 1.7;
-      opacity: 0;
-      transition: opacity 2s ease;
+    /* Wish page */
+    .wish {
+      max-width: 600px;
+      padding: 40px;
+      text-align: center;
+      animation: fadeUp 2s ease;
     }
 
-    .message.show {
-      opacity: 1;
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .wish p {
+      font-size: 18px;
+      line-height: 1.9;
+      white-space: pre-wrap;
+    }
+
+    .signature {
+      margin-top: 30px;
+      opacity: 0.7;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <h2>💌 A Message For You</h2>
-  <p>Enter your date of birth</p>
+<!-- SCREEN 1 -->
+<div class="screen" id="screenInput">
+  <div class="card">
+    <h2>💌 A Message For You</h2>
+    <p>Enter your date of birth</p>
 
-  <input type="date" id="dob">
-  <button onclick="showMessage()">View my message</button>
+    <input type="date" id="dob">
+    <button onclick="openWish()">Open my message</button>
+  </div>
+</div>
 
-  <div class="message" id="message"></div>
+<!-- SCREEN 2 -->
+<div class="screen hidden" id="screenWish">
+  <div class="wish">
+    <p id="wishText"></p>
+    <div class="signature">— From me 🤍</div>
+  </div>
 </div>
 
 <!-- Background Music -->
@@ -93,22 +138,36 @@
 
 <script>
   const messages = {
-    "1999-03-12": "Happy Birthday 🤍 You came into this world on a day that matters more than you know. May Allah keep you safe, calm your heart, and guide your steps.",
-    "2000-07-25": "You are remembered today, quietly, sincerely, and with warmth."
+    "1999-03-12":
+`Happy Birthday 🤍
+
+You came into this world on a day that matters more than you know.
+May Allah calm your heart, protect your soul, and guide you gently
+to places where you are valued and loved.
+
+You are remembered — sincerely and quietly.`,
+
+    "2000-07-25":
+`Another year, another chapter.
+
+I hope life is kinder to you this year,
+and that you never forget how much you matter.`
   };
 
-  function showMessage() {
+  function openWish() {
     const dob = document.getElementById("dob").value;
-    const messageBox = document.getElementById("message");
+    const wishText = document.getElementById("wishText");
     const music = document.getElementById("bgMusic");
 
     if (messages[dob]) {
-      messageBox.innerText = messages[dob];
+      wishText.textContent = messages[dob];
     } else {
-      messageBox.innerText = "I don’t have a message for this date 🤍";
+      wishText.textContent = "I don’t have a message for this date 🤍";
     }
 
-    messageBox.classList.add("show");
+    document.getElementById("screenInput").classList.add("hidden");
+    document.getElementById("screenWish").classList.remove("hidden");
+
     music.play().catch(() => {});
   }
 </script>
