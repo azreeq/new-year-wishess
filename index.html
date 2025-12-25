@@ -10,12 +10,12 @@
       margin: 0;
     }
     
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #E4EAEB, #A1AD98);
-      color: #1f2933;
-      overflow: hidden;
-    }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #E4EAEB, #A1AD98);
+    color: #1f2933;
+    overflow: hidden;
+  }
     
   .screen {
     position: absolute;
@@ -50,6 +50,8 @@
 }
 
 .letter {
+  position: relative;
+  z-index: 2;
   background: #E4EAEB; /* paper color */
   padding: 50px 40px;
   border-radius: 16px;
@@ -182,6 +184,7 @@
 }
 
 #fireworksCanvas {
+  background: transparent;
   position: absolute;
   top: 0;
   left: 0;
@@ -300,7 +303,14 @@ class Firework {
     this.x = Math.random() * canvas.width;
     this.y = canvas.height;
     this.targetY = Math.random() * canvas.height/2;
-    const colors = ['#E3B6B6', '#A1AD98', '#B8A68F', '#E4EAEB'];
+    const colors = [
+  '#ff4d4d', // red
+  '#ffd93d', // yellow
+  '#4dd2ff', // blue
+  '#6ee7b7', // green
+  '#c084fc', // purple
+  '#fb7185'  // pink
+];
     this.color = colors[Math.floor(Math.random() * colors.length)];
     this.particleCount = 30 + Math.floor(Math.random()*30);
     this.exploded = false;
@@ -356,8 +366,7 @@ class Particle {
 }
 
 function animateFireworks(){
-  ctx.fillStyle = "rgba(2,6,23,0.2)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Launch new firework randomly
   if(Math.random() < 0.05) fireworks.push(new Firework());
@@ -419,6 +428,7 @@ function goBack() {
 
 </body>
 </html>
+
 
 
 
