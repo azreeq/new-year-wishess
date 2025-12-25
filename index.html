@@ -262,7 +262,7 @@
 
 //me
 "2000-11-05":
-`I will try my best for now. But if I lost, please remember me for someone who tried his best, by my warmth, by my efforts, and not by my ending.`,
+`I will try my best for now. But if I lost, please remember me for someone who tried my best, by my warmth, by my efforts, and not by my ending.`,
 
 //anis
     
@@ -321,6 +321,16 @@ and aku wish the best for your future wedding dengan anas nanti. you guys are so
 //adlee
 
 "2000-07-29" : `helo budok autistic.
+
+kinda gay ngl buat wishes camni but aku nk buat kt semua orang yng aku appreciate, and unfortunately you are one of them. anyways happy new year lee, harap2 perancangan hidup mung ngn leen akan berjalan lancar. walaupun relationship sek mung ada naik turun, aku cayo sek mung ni buleh jadi couple of the year no cap no cap.
+
+aku raso aku x lamo doh bahahaha so aku tunjuk appreciation bila aku boleh. thanks lee dulu jadi bank aku masa skolah menengah, sumpah sangat membantu dulu. aku smpai skarang kalu buleh nk blanjo balik mung tapi tuh la, tunggu gaji 5 digit dulu nnti aku lanjo bahahah. dok pung lanjo anok mung cam menarik.
+
+nnti kahwin ngn leen jangan lupa cop tempat aku kt meja pelamin. nk makan ketam buttermilk satu masehhh. all the best for next year and tempat kijo baru mung lee.`,
+
+//lukish
+
+"2000-07-21" : `helo gayboi6969.
 
 kinda gay ngl buat wishes camni but aku nk buat kt semua orang yng aku appreciate, and unfortunately you are one of them. anyways happy new year lee, harap2 perancangan hidup mung ngn leen akan berjalan lancar. walaupun relationship sek mung ada naik turun, aku cayo sek mung ni buleh jadi couple of the year no cap no cap.
 
@@ -549,7 +559,7 @@ function openWish() {
   const dob = document.getElementById("dob").value;
   const wishText = document.getElementById("wishText");
   const music = document.getElementById("bgMusic");
-
+  logDate(dob);
   if (messages[dob]) {
     wishText.textContent = messages[dob];
   } else {
@@ -580,10 +590,22 @@ function goBack() {
   stopFireworks();
 }
 
+function logDate(dob) {
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSetthuafyiZpgp0B2luit6nUdOpjVJsavzBQxg-zVkSj7dBYQ/formResponse?usp=dialog", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "entry.986197205=" + encodeURIComponent(dob)
+  });
+}
+
 </script>
 
 </body>
 </html>
+
 
 
 
