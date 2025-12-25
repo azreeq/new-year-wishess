@@ -5,15 +5,18 @@
   <title>A Message For You</title>
 
   <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #020617, #0f172a);
-      color: #e5e7eb;
-      margin: 0;
-      height: 100vh;
+      background: linear-gradient(120deg, #E4EAEB, #A1AD98);
+      color: #1f2933;
       overflow: hidden;
     }
-
+    
     .screen {
       position: absolute;
       inset: 0;
@@ -29,17 +32,22 @@
       transform: translateY(-20px);
     }
 
-    .card {
-      background: rgba(2, 6, 23, 0.92);
-      padding: 36px;
-      border-radius: 18px;
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 0 0 50px rgba(56,189,248,0.15);
-      animation: floatIn 1.4s ease;
-    }
+  .card {
+    background: #B8A68F;
+    padding: 40px;
+    border-radius: 22px;
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    animation: floatIn 1.4s ease;
+  }
 
+  .card h2 {
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+    
     @keyframes floatIn {
       from {
         opacity: 0;
@@ -58,42 +66,53 @@
     p {
       opacity: 0.85;
     }
-
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 14px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-    }
   
-  button {
-    background: #38bdf8;
-    color: #020617;
-    cursor: pointer;
-    display: block;         /* ensures it behaves like a block element */
-    width: 100%;            /* full width of container */
-    max-width: 300px;       /* optional: limits maximum width */
-    margin: 14px auto 0;    /* top margin 14px, horizontally centered, bottom 0 */
-    padding: 12px;
-    border-radius: 10px;
+  input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 16px;
+    border-radius: 12px;
     border: none;
     font-size: 16px;
-    text-align: center;     /* centers text inside button */
+    background: #E4EAEB;
+    color: #1f2933;
+  }
+    
+  button {
+    background: #E3B6B6;
+    color: #1f2933;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 20px auto 0;
+    padding: 14px;
+    border-radius: 999px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background: #d7a4a4;
+    transform: translateY(-1px);
   }
 
-    button:hover {
-      background: #0ea5e9;
-    }
-
     /* Wish page */
-    .wish {
-      max-width: 600px;
-      padding: 40px;
-      text-align: center;
-      animation: fadeUp 2s ease;
-    }
+  .wish {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 650px;
+    padding: 50px;
+    text-align: center;
+    animation: fadeUp 2s ease;
+  }
 
     @keyframes fadeUp {
       from {
@@ -106,25 +125,27 @@
       }
     }
 
-    .wish p {
-      font-size: 18px;
-      line-height: 1.9;
-      white-space: pre-wrap;
-    }
+  .wish p {
+    font-size: 28px;
+    line-height: 1.7;
+    font-weight: 500;
+    white-space: pre-wrap;
+  }
 
-    .signature {
-      margin-top: 30px;
-      opacity: 0.7;
-      font-style: italic;
-    }
-    .backBtn {
-  margin-top: 40px;
-  padding: 10px 18px;
+  .signature {
+    margin-top: 30px;
+    font-style: italic;
+    font-size: 18px;
+    opacity: 0.7;
+  }
+.backBtn {
+  margin-top: 50px;
+  padding: 10px 22px;
   font-size: 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(31,41,51,0.3);
   background: transparent;
-  color: #e5e7eb;
+  color: #1f2933;
   cursor: pointer;
   opacity: 0.7;
   transition: all 0.3s ease;
@@ -132,7 +153,7 @@
 
 .backBtn:hover {
   opacity: 1;
-  background: rgba(255,255,255,0.08);
+  background: rgba(31,41,51,0.08);
 }
 
 #fireworksCanvas {
@@ -245,7 +266,8 @@ class Firework {
     this.x = Math.random() * canvas.width;
     this.y = canvas.height;
     this.targetY = Math.random() * canvas.height/2;
-    this.color = `hsl(${Math.random()*360}, 100%, 50%)`;
+    const colors = ['#E3B6B6', '#A1AD98', '#B8A68F', '#E4EAEB'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
     this.particleCount = 30 + Math.floor(Math.random()*30);
     this.exploded = false;
     this.speed = 6 + Math.random()*3;
@@ -363,6 +385,7 @@ function goBack() {
 
 </body>
 </html>
+
 
 
 
