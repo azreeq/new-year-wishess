@@ -34,7 +34,7 @@
       padding: 36px;
       border-radius: 18px;
       width: 100%;
-      max-width: 440px;
+      max-width: 500px;
       text-align: center;
       box-shadow: 0 0 50px rgba(56,189,248,0.15);
       animation: floatIn 1.4s ease;
@@ -67,12 +67,21 @@
       border: none;
       font-size: 16px;
     }
-
-    button {
-      background: #38bdf8;
-      color: #020617;
-      cursor: pointer;
-    }
+  
+  button {
+    background: #38bdf8;
+    color: #020617;
+    cursor: pointer;
+    display: block;         /* ensures it behaves like a block element */
+    width: 100%;            /* full width of container */
+    max-width: 300px;       /* optional: limits maximum width */
+    margin: 14px auto 0;    /* top margin 14px, horizontally centered, bottom 0 */
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    text-align: center;     /* centers text inside button */
+  }
 
     button:hover {
       background: #0ea5e9;
@@ -354,6 +363,7 @@ function goBack() {
 
 </body>
 </html>
+
 
 
 
