@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A Message For You</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #020617, #0f172a);
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(2, 6, 23, 0.9);
+      padding: 32px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(56,189,248,0.15);
+      animation: floatIn 1.2s ease;
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      margin-bottom: 8px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      background: #38bdf8;
+      color: #020617;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0ea5e9;
+    }
+
+    .message {
+      margin-top: 24px;
+      font-size: 16px;
+      line-height: 1.7;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .message.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>💌 A Message For You</h2>
+  <p>Enter your date of birth</p>
+
+  <input type="date" id="dob">
+  <button onclick="showMessage()">View my message</button>
+
+  <div class="message" id="message"></div>
+</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const messages = {
+    "1999-03-12": "Happy Birthday 🤍 You came into this world on a day that matters more than you know. May Allah keep you safe, calm your heart, and guide your steps.",
+    "2000-07-25": "You are remembered today, quietly, sincerely, and with warmth."
+  };
+
+  function showMessage() {
+    const dob = document.getElementById("dob").value;
+    const messageBox = document.getElementById("message");
+    const music = document.getElementById("bgMusic");
+
+    if (messages[dob]) {
+      messageBox.innerText = messages[dob];
+    } else {
+      messageBox.innerText = "I don’t have a message for this date 🤍";
+    }
+
+    messageBox.classList.add("show");
+    music.play().catch(() => {});
+  }
+</script>
+
+</body>
+</html>
