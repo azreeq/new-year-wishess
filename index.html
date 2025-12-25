@@ -125,6 +125,20 @@
   opacity: 1;
   background: rgba(255,255,255,0.08);
 }
+
+#fireworksCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* so you can still click buttons */
+  z-index: 0; /* behind text */
+}
+.wish {
+  position: relative;
+  z-index: 1; /* make sure text is above fireworks */
+}
     
   </style>
 </head>
@@ -143,6 +157,8 @@
 
 <!-- SCREEN 2 -->
 <div class="screen hidden" id="screenWish">
+  <canvas id="fireworksCanvas"></canvas>
+  
   <div class="wish">
     <p id="wishText"></p>
     <div class="signature">— From me 🤍</div>
@@ -159,10 +175,10 @@
 
 <script>
   const messages = {
-    "2000-05-11":
-`I will try my best for now. But if i lost my battle, please remember me for someone who tried his best, and not by my endings.`,
+    "2000-11-05":
+`I will try my best for now. But if I lost my battle, please remember me for someone who tried his best, by my warmth, and not by my ending.`,
 
-    "2000-07-25":
+    "1999-07-28":
 `Another year, another chapter.
 
 I hope life is kinder to you this year,
@@ -196,11 +212,149 @@ and that you never forget how much you matter.`
   document.getElementById("wishText").textContent = "";
   document.getElementById("dob").value = "";
 }
-  
+
+
+// NEW YEAR FIREWORKS
+let canvas, ctx, fireworks = [], particles = [], animationFrame;
+
+function initFireworks() {
+  canvas = document.getElementById("fireworksCanvas");
+  ctx = canvas.getContext("2d");
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  animateFireworks();
+}
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+// Firework launcher
+class Firework {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = canvas.height;
+    this.targetY = Math.random() * canvas.height/2;
+    this.color = `hsl(${Math.random()*360}, 100%, 50%)`;
+    this.particleCount = 30 + Math.floor(Math.random()*30);
+    this.exploded = false;
+    this.speed = 6 + Math.random()*3;
+  }
+  update() {
+    if(!this.exploded){
+      this.y -= this.speed;
+      if(this.y <= this.targetY) this.explode();
+    }
+  }
+  explode() {
+    this.exploded = true;
+    for(let i=0;i<this.particleCount;i++){
+      particles.push(new Particle(this.x, this.y, this.color));
+    }
+  }
+  draw() {
+    if(!this.exploded){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 3, 0, Math.PI*2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+  }
+}
+
+// Particle class
+class Particle {
+  constructor(x,y,color){
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.vx = (Math.random()-0.5)*6;
+    this.vy = (Math.random()-0.5)*6;
+    this.alpha = 1;
+    this.decay = 0.015 + Math.random()*0.015;
+  }
+  update(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += 0.05; // gravity
+    this.alpha -= this.decay;
+  }
+  draw(){
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 3, 0, Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function animateFireworks(){
+  ctx.fillStyle = "rgba(2,6,23,0.2)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // Launch new firework randomly
+  if(Math.random() < 0.05) fireworks.push(new Firework());
+
+  // Update fireworks
+  for(let i=fireworks.length-1;i>=0;i--){
+    fireworks[i].update();
+    fireworks[i].draw();
+    if(fireworks[i].exploded) fireworks.splice(i,1);
+  }
+
+  // Update particles
+  for(let i=particles.length-1;i>=0;i--){
+    particles[i].update();
+    particles[i].draw();
+    if(particles[i].alpha <= 0) particles.splice(i,1);
+  }
+
+  animationFrame = requestAnimationFrame(animateFireworks);
+}
+
+// Start fireworks when wish page opens
+function openWish() {
+  const dob = document.getElementById("dob").value;
+  const wishText = document.getElementById("wishText");
+  const music = document.getElementById("bgMusic");
+
+  if (messages[dob]) {
+    wishText.textContent = messages[dob];
+  } else {
+    wishText.textContent = "I don’t have a message for this date 🤍";
+  }
+
+  document.getElementById("screenInput").classList.add("hidden");
+  document.getElementById("screenWish").classList.remove("hidden");
+
+  music.play().catch(() => {});
+  initFireworks();
+}
+
+// Stop fireworks when going back
+function goBack() {
+  const music = document.getElementById("bgMusic");
+  music.pause();
+  music.currentTime = 0;
+
+  document.getElementById("screenWish").classList.add("hidden");
+  document.getElementById("screenInput").classList.remove("hidden");
+
+  document.getElementById("wishText").textContent = "";
+  document.getElementById("dob").value = "";
+
+  fireworks = [];
+  particles = [];
+  cancelAnimationFrame(animationFrame);
+}
+
 </script>
 
 </body>
 </html>
+
 
 
 
