@@ -108,6 +108,24 @@
       opacity: 0.7;
       font-style: italic;
     }
+    .backBtn {
+  margin-top: 40px;
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: #e5e7eb;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.backBtn:hover {
+  opacity: 1;
+  background: rgba(255,255,255,0.08);
+}
+    
   </style>
 </head>
 <body>
@@ -128,6 +146,9 @@
   <div class="wish">
     <p id="wishText"></p>
     <div class="signature">— From me 🤍</div>
+
+    <!-- BACK BUTTON -->
+    <button class="backBtn" onclick="goBack()">← Go back</button>
   </div>
 </div>
 
@@ -170,7 +191,20 @@ and that you never forget how much you matter.`
 
     music.play().catch(() => {});
   }
+  function goBack() {
+  const music = document.getElementById("bgMusic");
+  music.pause();
+  music.currentTime = 0;
+
+  document.getElementById("screenWish").classList.add("hidden");
+  document.getElementById("screenInput").classList.remove("hidden");
+
+  document.getElementById("wishText").textContent = "";
+  document.getElementById("dob").value = "";
+}
+  
 </script>
 
 </body>
 </html>
+
