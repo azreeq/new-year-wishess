@@ -50,17 +50,18 @@
 }
 
 .letter {
-  position: relative;
-  z-index: 2;
-  background: #E4EAEB; /* paper color */
-  padding: 50px 40px;
+  background-color: #F2EFE9; /* paper */
+  padding: 40px 36px;
   border-radius: 16px;
   max-width: 620px;
   width: 100%;
+  max-height: 65vh;          /* LIMIT HEIGHT */
+  overflow-y: auto;          /* SCROLL INSIDE LETTER */
   box-shadow:
     0 20px 40px rgba(0,0,0,0.18),
     inset 0 0 0 1px rgba(0,0,0,0.05);
   animation: letterIn 1.6s ease;
+  position: relative;
 }
     
     @keyframes floatIn {
@@ -151,17 +152,17 @@
       }
     }
 
-  .wish p {
-    font-size: 26px;
-    line-height: 1.8;
-    font-weight: 500;
+    .wish p {
+    font-size: 20px;     /* smaller, calmer */
+    line-height: 1.75;   /* comfortable reading */
+    font-weight: 400;
     color: #1f2933;
     white-space: pre-wrap;
   }
   .signature {
-    margin-top: 30px;
+    margin-top: 24px;
     font-style: italic;
-    font-size: 18px;
+    font-size: 16px;
     opacity: 0.7;
     color: #1f2933;
   }
@@ -178,6 +179,20 @@
   transition: all 0.3s ease;
 }
 
+  .letter {
+  scrollbar-width: thin;
+  scrollbar-color: #B8A68F transparent;
+}
+
+/* Chrome / Edge */
+.letter::-webkit-scrollbar {
+  width: 6px;
+}
+.letter::-webkit-scrollbar-thumb {
+  background: #B8A68F;
+  border-radius: 999px;
+}
+    
 .backBtn:hover {
   opacity: 1;
   background: rgba(31,41,51,0.08);
@@ -511,6 +526,7 @@ function goBack() {
 
 </body>
 </html>
+
 
 
 
