@@ -17,14 +17,15 @@
       overflow: hidden;
     }
     
-    .screen {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 1.2s ease, transform 1.2s ease;
-    }
+  .screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    background: transparent; /* IMPORTANT */
+  }
 
     .hidden {
       opacity: 0;
@@ -37,7 +38,7 @@
     padding: 40px;
     border-radius: 22px;
     width: 100%;
-    max-width: 460px;
+    max-width: 500px;
     text-align: center;
     box-shadow: 0 20px 50px rgba(0,0,0,0.15);
     animation: floatIn 1.4s ease;
@@ -112,6 +113,7 @@
     padding: 50px;
     text-align: center;
     animation: fadeUp 2s ease;
+    background: transparent; /* IMPORTANT */
   }
 
     @keyframes fadeUp {
@@ -130,6 +132,7 @@
     line-height: 1.7;
     font-weight: 500;
     white-space: pre-wrap;
+    color: #1f2933; /* DARK readable text */
   }
 
   .signature {
@@ -385,6 +388,7 @@ function goBack() {
 
 </body>
 </html>
+
 
 
 
