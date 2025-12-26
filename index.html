@@ -223,6 +223,16 @@
   text-align: center;
 }
     
+.chibi-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;        /* size of the gif */
+  max-width: 80%;
+  pointer-events: none; /* IMPORTANT: doesn’t block clicks */
+}
+    
   </style>
 </head>
 <body>
@@ -236,6 +246,9 @@
     <input type="date" id="dob">
     <button onclick="openWish()">Open my message</button>
   </div>
+  <img
+  src="https://media.tenor.com/o1sSgN3Ry1cAAAAC/mlbb-jjk-jjk-mlbb-jujutsu-kaisen-mlbbx-jujutsu-kaisen-xavier.gif"
+  class="chibi-bottom">
 </div>
 
 <!-- SCREEN 2 --> 
@@ -612,6 +625,7 @@ function logDate(dob) {
 
 </body>
 </html>
+
 
 
 
