@@ -253,64 +253,15 @@
 .chibi:nth-child(5) {
   transform: scaleX(-1);
 }
-
-.butterflies {
+    
+#butterflyFx {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
 }
-
-.butterfly {
-  position: absolute;
-  font-size: 28px;
-  opacity: 0.85;
-  animation-timing-function: linear;
-}
-
-/* Purple butterfly */
-.b1 {
-  left: -40px;
-  top: 70%;
-  filter: hue-rotate(260deg) saturate(1.4);
-  animation: fly1 18s infinite;
-}
-
-/* Blue butterfly */
-.b2 {
-  left: -40px;
-  top: 40%;
-  filter: hue-rotate(190deg) saturate(1.5);
-  animation: fly2 22s infinite;
-}
-
-/* Purple again */
-.b3 {
-  left: -40px;
-  top: 85%;
-  filter: hue-rotate(260deg) saturate(1.3);
-  animation: fly3 26s infinite;
-}
-
-@keyframes fly1 {
-  0% { transform: translateX(0) translateY(0); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateX(120vw) translateY(-140px); opacity: 0; }
-}
-
-@keyframes fly2 {
-  0% { transform: translateX(0) translateY(0); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateX(120vw) translateY(120px); opacity: 0; }
-}
-
-@keyframes fly3 {
-  0% { transform: translateX(0) translateY(0); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateX(120vw) translateY(-60px); opacity: 0; }
-}
-
-
     
   </style>
 </head>
@@ -318,12 +269,8 @@
 
 <!-- SCREEN 1 -->
 <div class="screen" id="screenInput">
+  <canvas id="butterflyFx"></canvas>
   <div class="card">
-    <div class="butterflies">
-    <span class="butterfly b1">🦋</span>
-    <span class="butterfly b2">🦋</span>
-    <span class="butterfly b3">🦋</span>
-  </div>
     
     <h2>🌟 Thanks for being such a great person! 🌟</h2>
     <p> Please enter your meaningful date! (Your birthdate of course xD) </p>
@@ -719,10 +666,89 @@ function logDate(dob) {
     body: "entry.986197205=" + encodeURIComponent(dob)
   });
 }
+/* =========================
+   BUTTERFLY FX (ISOLATED)
+========================= */
 
+(function () {
+  const canvas = document.getElementById("butterflyFx");
+  if (!canvas) return;
 
+  const ctx = canvas.getContext("2d");
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  const butterflies = [];
+
+  class Butterfly {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height + Math.random() * 100;
+      this.vy = Math.random() * 0.6 + 0.4;
+      this.phase = Math.random() * Math.PI * 2;
+      this.size = Math.random() * 6 + 6;
+      this.color = Math.random() > 0.5 ? "#8b5cf6" : "#38bdf8";
+    }
+
+    update() {
+      this.phase += 0.12;
+      this.x += Math.sin(this.phase) * 1.2;
+      this.y -= this.vy;
+    }
+
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+
+      const flap = Math.sin(this.phase) * this.size;
+
+      ctx.globalAlpha = 0.85;
+      ctx.fillStyle = this.color;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = this.color;
+
+      // left wing
+      ctx.beginPath();
+      ctx.ellipse(-this.size, 0, flap, this.size, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // right wing
+      ctx.beginPath();
+      ctx.ellipse(this.size, 0, flap, this.size, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (butterflies.length < 12 && Math.random() < 0.05) {
+      butterflies.push(new Butterfly());
+    }
+
+    for (let i = butterflies.length - 1; i >= 0; i--) {
+      butterflies[i].update();
+      butterflies[i].draw();
+      if (butterflies[i].y < -50) butterflies.splice(i, 1);
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  loop();
+})();
+  
 </script>
+
 
 </body>
 </html>
+
 
