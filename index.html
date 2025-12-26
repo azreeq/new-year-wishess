@@ -223,14 +223,21 @@
   text-align: center;
 }
     
-.chibi-bottom {
+.chibi-group {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 220px;        /* size of the gif */
-  max-width: 80%;
-  pointer-events: none; /* IMPORTANT: doesn’t block clicks */
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;              /* space between GIFs */
+  pointer-events: none;   /* VERY IMPORTANT */
+  z-index: 1;
+}
+
+.chibi {
+  width: 160px;           /* size of each GIF */
+  max-width: 30vw;
 }
     
   </style>
@@ -246,9 +253,11 @@
     <input type="date" id="dob">
     <button onclick="openWish()">Open my message</button>
   </div>
-  <img
-  src="https://media.tenor.com/bkA2JqxxfGwAAAAi/mlbb-jjk-jjk-mlbb.gif"
-  class="chibi-bottom">
+  <div class="chibi-group">
+    <img src="https://media.tenor.com/bkA2JqxxfGwAAAAi/mlbb-jjk-jjk-mlbb.gif" class="chibi">
+    <img src="https://media.tenor.com/NDS88lmjy0wAAAAi/neco-arc-neco-arc.gif" class="chibi">
+    <img src="https://media.tenor.com/5OLMdrjEUGcAAAAj/deku-hype-hype.gif" class="chibi">
+  </div>
 </div>
 
 <!-- SCREEN 2 --> 
@@ -625,6 +634,7 @@ function logDate(dob) {
 
 </body>
 </html>
+
 
 
 
