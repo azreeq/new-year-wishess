@@ -262,6 +262,56 @@
   pointer-events: none;
   z-index: 0;
 }
+
+.butterfly-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.butterfly-layer span {
+  position: absolute;
+  bottom: -20px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  filter: blur(1px);
+  opacity: 0.8;
+  animation: floatUp linear infinite;
+}
+
+/* Purple & blue particles */
+.butterfly-layer span:nth-child(odd) {
+  background: #8b5cf6;
+}
+.butterfly-layer span:nth-child(even) {
+  background: #38bdf8;
+}
+
+/* Individual motion */
+.butterfly-layer span:nth-child(1) { left: 10%; animation-duration: 18s; }
+.butterfly-layer span:nth-child(2) { left: 25%; animation-duration: 22s; }
+.butterfly-layer span:nth-child(3) { left: 40%; animation-duration: 20s; }
+.butterfly-layer span:nth-child(4) { left: 55%; animation-duration: 26s; }
+.butterfly-layer span:nth-child(5) { left: 70%; animation-duration: 24s; }
+.butterfly-layer span:nth-child(6) { left: 85%; animation-duration: 30s; }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.6);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(40px) scale(1);
+    opacity: 0;
+  }
+}
+
     
   </style>
 </head>
@@ -269,6 +319,10 @@
 
 <!-- SCREEN 1 -->
 <div class="screen" id="screenInput">
+  <div class="butterfly-layer">
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span>
+</div>
   <canvas id="butterflyFx"></canvas>
   <div class="card">
     
@@ -673,6 +727,7 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
