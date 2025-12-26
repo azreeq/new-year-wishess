@@ -274,47 +274,23 @@
 .butterfly-layer span {
   position: absolute;
   bottom: -20px;
-  width: 14px;
-  height: 10px;
-  opacity: 0;
-  animation:
-    floatUp linear infinite,
-    flap 0.7s ease-in-out infinite;
-}
-
-/* BUTTERFLY WINGS (two circles) */
-.butterfly-layer span::before,
-.butterfly-layer span::after {
-  content: "";
-  position: absolute;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: currentColor;
-  filter: blur(0.5px);
+  filter: blur(1px);
+  opacity: 0.8;
+  animation: floatUp linear infinite;
 }
 
-/* Left wing */
-.butterfly-layer span::before {
-  left: 0;
-  top: 1px;
-}
-
-/* Right wing */
-.butterfly-layer span::after {
-  right: 0;
-  top: 1px;
-}
-
-/* COLORS */
+/* Purple & blue particles */
 .butterfly-layer span:nth-child(odd) {
-  color: #8b5cf6; /* purple */
+  background: #8b5cf6;
 }
 .butterfly-layer span:nth-child(even) {
-  color: #38bdf8; /* bright blue */
+  background: #38bdf8;
 }
 
-/* POSITIONS & SPEEDS (same idea as before) */
+/* Individual motion */
 .butterfly-layer span:nth-child(1)  { left: 3%;  animation-duration: 18s; }
 .butterfly-layer span:nth-child(2)  { left: 6%;  animation-duration: 22s; }
 .butterfly-layer span:nth-child(3)  { left: 9%;  animation-duration: 20s; }
@@ -351,7 +327,7 @@
 .butterfly-layer span:nth-child(29) { left: 87%; animation-duration: 21s; }
 .butterfly-layer span:nth-child(30) { left: 90%; animation-duration: 30s; }
 
-/* FLOATING LIKE FIREWORK TRAILS */
+
 @keyframes floatUp {
   0% {
     transform: translateY(0) translateX(0) scale(0.6);
@@ -366,20 +342,6 @@
   }
 }
 
-/* WING FLUTTER */
-@keyframes flap {
-  0%, 100% {
-    transform: scaleX(1);
-  }
-  50% {
-    transform: scaleX(0.4);
-  }
-}
-
-.butterfly-layer span {
-  background: red !important;
-  opacity: 1 !important;
-}
     
   </style>
 </head>
@@ -392,9 +354,7 @@
   <span></span><span></span><span></span>
   <span></span><span></span><span></span>
   <span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span>
 </div>
   <canvas id="butterflyFx"></canvas>
   <div class="card">
@@ -800,8 +760,6 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
-
-
 
 
 
