@@ -45,15 +45,6 @@
     position: relative;
     z-index: 2;
   }
-
-#butterflyCanvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
     
   .card h2 {
   margin-bottom: 12px;
@@ -269,7 +260,6 @@
 
 <!-- SCREEN 1 -->
 <div class="screen" id="screenInput">
-  <canvas id="butterflyCanvas"></canvas>
   <div class="card">
     <h2>🌟 Thanks for being such a great person! 🌟</h2>
     <p> Please enter your meaningful date! (Your birthdate of course xD) </p>
@@ -667,93 +657,11 @@ function logDate(dob) {
 }
 
 
-const butterflyCanvas = document.getElementById("butterflyCanvas");
-const btx = butterflyCanvas.getContext("2d");
-
-let butterflies = [];
-
-function resizeButterflyCanvas() {
-  butterflyCanvas.width = window.innerWidth;
-  butterflyCanvas.height = window.innerHeight;
-}
-resizeButterflyCanvas();
-window.addEventListener("resize", resizeButterflyCanvas);
-
-/* ======================
-   BUTTERFLY PARTICLE
-====================== */
-class Butterfly {
-  constructor() {
-    this.x = Math.random() * butterflyCanvas.width;
-    this.y = butterflyCanvas.height + Math.random() * 200;
-    this.size = Math.random() * 6 + 6;
-    this.speed = Math.random() * 0.6 + 0.4;
-    this.angle = Math.random() * Math.PI * 2;
-    this.wing = Math.random() * Math.PI * 2;
-    this.color = Math.random() > 0.5 ? "#8b5cf6" : "#38bdf8"; // purple / blue
-  }
-
-  update() {
-    this.angle += 0.01;
-    this.wing += 0.2;
-
-    this.x += Math.sin(this.angle) * 0.6;
-    this.y -= this.speed;
-  }
-draw() {
-  btx.save();
-  btx.translate(this.x, this.y);
-
-  const flap = Math.sin(this.wing) * (this.size * 1.4);
-
-  btx.globalAlpha = 0.9;
-  btx.fillStyle = this.color;
-
-  // glow
-  btx.shadowBlur = 12;
-  btx.shadowColor = this.color;
-
-  // left wing
-  btx.beginPath();
-  btx.ellipse(-this.size, 0, flap, this.size, 0, 0, Math.PI * 2);
-  btx.fill();
-
-  // right wing
-  btx.beginPath();
-  btx.ellipse(this.size, 0, flap, this.size, 0, 0, Math.PI * 2);
-  btx.fill();
-
-  btx.restore();
-}
-
-/* ======================
-   BUTTERFLY LOOP
-====================== */
-function animateButterflies() {
-  btx.clearRect(0, 0, butterflyCanvas.width, butterflyCanvas.height);
-
-  if (butterflies.length < 20 && Math.random() < 0.03) {
-    butterflies.push(new Butterfly());
-  }
-
-  for (let i = butterflies.length - 1; i >= 0; i--) {
-    butterflies[i].update();
-    butterflies[i].draw();
-
-    if (butterflies[i].y < -50) {
-      butterflies.splice(i, 1);
-    }
-  }
-
-  requestAnimationFrame(animateButterflies);
-}
-
-animateButterflies();
-
 </script>
 
 </body>
 </html>
+
 
 
 
