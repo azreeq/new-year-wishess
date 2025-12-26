@@ -263,7 +263,7 @@
   z-index: 0;
 }
 
-.butterfly-field {
+.butterfly-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -271,73 +271,34 @@
   overflow: hidden;
 }
 
-/* Butterfly base */
-.butterfly-field i {
+.butterfly-layer span {
   position: absolute;
-  bottom: -40px;
-  width: 18px;
-  height: 12px;
-  animation:
-    flyUp linear infinite,
-    flap 0.8s ease-in-out infinite;
-  opacity: 0;
-}
-
-/* Body */
-.butterfly-field i::after {
-  content: "";
-  position: absolute;
-  left: 8px;
-  top: 2px;
-  width: 2px;
+  bottom: -20px;
+  width: 8px;
   height: 8px;
-  background: rgba(0,0,0,0.4);
-  border-radius: 999px;
+  border-radius: 50%;
+  filter: blur(1px);
+  opacity: 0.8;
+  animation: floatUp linear infinite;
 }
 
-/* Wings */
-.butterfly-field i::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at left center, currentColor 60%, transparent 62%),
-    radial-gradient(circle at right center, currentColor 60%, transparent 62%);
-  filter: blur(0.5px);
+/* Purple & blue particles */
+.butterfly-layer span:nth-child(odd) {
+  background: #8b5cf6;
+}
+.butterfly-layer span:nth-child(even) {
+  background: #38bdf8;
 }
 
-/* Colors */
-.butterfly-field i:nth-child(odd) {
-  color: #8b5cf6; /* purple */
-}
-.butterfly-field i:nth-child(even) {
-  color: #38bdf8; /* bright blue */
-}
+/* Individual motion */
+.butterfly-layer span:nth-child(1) { left: 10%; animation-duration: 18s; }
+.butterfly-layer span:nth-child(2) { left: 25%; animation-duration: 22s; }
+.butterfly-layer span:nth-child(3) { left: 40%; animation-duration: 20s; }
+.butterfly-layer span:nth-child(4) { left: 55%; animation-duration: 26s; }
+.butterfly-layer span:nth-child(5) { left: 70%; animation-duration: 24s; }
+.butterfly-layer span:nth-child(6) { left: 85%; animation-duration: 30s; }
 
-/* Position & timing randomness */
-.butterfly-field i:nth-child(1)  { left: 5%;  animation-duration: 18s; }
-.butterfly-field i:nth-child(2)  { left: 10%; animation-duration: 22s; }
-.butterfly-field i:nth-child(3)  { left: 15%; animation-duration: 20s; }
-.butterfly-field i:nth-child(4)  { left: 20%; animation-duration: 26s; }
-.butterfly-field i:nth-child(5)  { left: 25%; animation-duration: 24s; }
-.butterfly-field i:nth-child(6)  { left: 30%; animation-duration: 19s; }
-.butterfly-field i:nth-child(7)  { left: 35%; animation-duration: 23s; }
-.butterfly-field i:nth-child(8)  { left: 40%; animation-duration: 21s; }
-.butterfly-field i:nth-child(9)  { left: 45%; animation-duration: 28s; }
-.butterfly-field i:nth-child(10) { left: 50%; animation-duration: 25s; }
-.butterfly-field i:nth-child(11) { left: 55%; animation-duration: 20s; }
-.butterfly-field i:nth-child(12) { left: 60%; animation-duration: 24s; }
-.butterfly-field i:nth-child(13) { left: 65%; animation-duration: 22s; }
-.butterfly-field i:nth-child(14) { left: 70%; animation-duration: 27s; }
-.butterfly-field i:nth-child(15) { left: 75%; animation-duration: 19s; }
-.butterfly-field i:nth-child(16) { left: 80%; animation-duration: 23s; }
-.butterfly-field i:nth-child(17) { left: 85%; animation-duration: 21s; }
-.butterfly-field i:nth-child(18) { left: 90%; animation-duration: 26s; }
-.butterfly-field i:nth-child(19) { left: 95%; animation-duration: 24s; }
-.butterfly-field i:nth-child(20) { left: 50%; animation-duration: 30s; }
-
-/* Floating path */
-@keyframes flyUp {
+@keyframes floatUp {
   0% {
     transform: translateY(0) translateX(0) scale(0.6);
     opacity: 0;
@@ -346,18 +307,8 @@
     opacity: 1;
   }
   100% {
-    transform: translateY(-130vh) translateX(60px) scale(1);
+    transform: translateY(-120vh) translateX(40px) scale(1);
     opacity: 0;
-  }
-}
-
-/* Wing flapping */
-@keyframes flap {
-  0%, 100% {
-    transform: scaleX(1);
-  }
-  50% {
-    transform: scaleX(0.4);
   }
 }
 
@@ -368,13 +319,11 @@
 
 <!-- SCREEN 1 -->
 <div class="screen" id="screenInput">
-<div class="butterfly-field">
-  <i></i><i></i><i></i><i></i><i></i>
-  <i></i><i></i><i></i><i></i><i></i>
-  <i></i><i></i><i></i><i></i><i></i>
-  <i></i><i></i><i></i><i></i><i></i>
-  <i></i><i></i><i></i><i></i><i></i>
-  <i></i><i></i><i></i><i></i><i></i>
+  <div class="butterfly-layer">
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span>
 </div>
   <canvas id="butterflyFx"></canvas>
   <div class="card">
@@ -780,8 +729,6 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
-
-
 
 
 
