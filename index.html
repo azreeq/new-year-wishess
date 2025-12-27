@@ -210,14 +210,17 @@
   padding: 12px 28px;
   font-size: 14px;
   border-radius: 999px;
-  border: 1px solid rgba(31,41,51,0.35);
-  background: rgba(31,41,51,0.07);
+
+  /* match card color */
+  background: #B8A68F;
   color: #1f2933;
+  border: 1px solid rgba(0,0,0,0.15);
+
   text-decoration: none;
   cursor: pointer;
 
-  /* subtle pop */
-  box-shadow: 0 6px 16px rgba(31,41,51,0.15);
+  /* soft elevation */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
   transform: translateY(0);
 
   transition:
@@ -225,10 +228,16 @@
     box-shadow 0.25s ease,
     background 0.25s ease;
 }
+    
 .linkBtn:hover {
-  background: rgba(31,41,51,0.12);
+  background: #b09c84; /* slightly darker card tone */
   transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(31,41,51,0.22);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+}
+
+.linkBtn {
+  background: rgba(184,166,143,0.85);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
 }
     
 #fireworksCanvas {
@@ -797,6 +806,7 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
