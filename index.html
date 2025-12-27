@@ -203,6 +203,27 @@
   background: rgba(31,41,51,0.08);
 }
 
+.linkBtn {
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 16px;
+  padding: 12px 26px;
+  font-size: 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(31,41,51,0.35);
+  background: rgba(31,41,51,0.05);
+  color: #1f2933;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.linkBtn:hover {
+  background: rgba(31,41,51,0.1);
+  transform: translateY(-1px);
+}
+
+    
 #fireworksCanvas {
   background: transparent;
   position: absolute;
@@ -390,7 +411,17 @@
       <div class="signature">— From Azreeq 🦆</div>
     </div>
   
-    <button class="backBtn" onclick="goBack()">← Go back</button>
+    <a
+  href="https://YOUR-LINK-HERE"
+  target="_blank"
+  class="linkBtn"
+  id="extraLink"
+  style="display: none;"
+>
+  Nah Angpawww sikit xDD →
+</a>
+
+<button class="backBtn" onclick="goBack()">← Go back</button>
   </div>
 </div>
 
@@ -509,33 +540,7 @@ kalau apa2 jadi, just bagitau aku, mungkin aku takleh tolong sangat, but i can b
 
   };
 
-  function openWish() {
-    const dob = document.getElementById("dob").value;
-    const wishText = document.getElementById("wishText");
-    const music = document.getElementById("bgMusic");
 
-    if (messages[dob]) {
-      wishText.textContent = messages[dob];
-    } else {
-      wishText.textContent = "Nah no message for you (enter your correct birthdate!!!) 🤍";
-    }
-
-    document.getElementById("screenInput").classList.add("hidden");
-    document.getElementById("screenWish").classList.remove("hidden");
-
-    music.play().catch(() => {});
-  }
-  function goBack() {
-  const music = document.getElementById("bgMusic");
-  music.pause();
-  music.currentTime = 0;
-
-  document.getElementById("screenWish").classList.add("hidden");
-  document.getElementById("screenInput").classList.remove("hidden");
-
-  document.getElementById("wishText").textContent = "";
-  document.getElementById("dob").value = "";
-}
 
 
 // NEW YEAR FIREWORKS
@@ -718,25 +723,31 @@ function openWish() {
   const dob = document.getElementById("dob").value;
   const wishText = document.getElementById("wishText");
   const music = document.getElementById("bgMusic");
+  const extraLink = document.getElementById("extraLink");
+
   logDate(dob);
+
   if (messages[dob]) {
     wishText.textContent = messages[dob];
+    extraLink.style.display = "inline-block"; // ✅ SHOW button
   } else {
-    wishText.textContent = "Nah no message for you (enter your correct birthdate!!!)  🤍";
+    wishText.textContent = "Nah no message for you (enter your correct birthdate!!!) 🤍";
+    extraLink.style.display = "none"; // ❌ HIDE button
   }
 
   document.getElementById("screenInput").classList.add("hidden");
   document.getElementById("screenWish").classList.remove("hidden");
 
-  
-  music.volume = 0.2; // 20% volume
+  music.volume = 0.2;
   music.play().catch(() => {});
-  startFireworks();;
+  startFireworks();
 }
 
 // Stop fireworks when going back
 function goBack() {
   const music = document.getElementById("bgMusic");
+  const extraLink = document.getElementById("extraLink");
+
   music.pause();
   music.currentTime = 0;
 
@@ -745,10 +756,10 @@ function goBack() {
 
   document.getElementById("wishText").textContent = "";
   document.getElementById("dob").value = "";
+  extraLink.style.display = "none"; // reset
 
   stopFireworks();
 }
-
 function logDate(dob) {
   fetch("https://docs.google.com/forms/d/e/1FAIpQLSetthuafyiZpgp0B2luit6nUdOpjVJsavzBQxg-zVkSj7dBYQ/formResponse?usp=dialog", {
     method: "POST",
@@ -766,6 +777,7 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
