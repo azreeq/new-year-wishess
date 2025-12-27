@@ -450,13 +450,14 @@
 
 .cat-bonk-wish {
   position: absolute;
-  top: -32px;
+  top: -28px;                 /* slight overlap, feels natural */
+  left: 50%;
 
   width: 60px;
   z-index: 3;
   pointer-events: none;
-  left: 50%;
-  transform: translateX(-50%);
+
+  transform: translateX(-50%) rotate(45deg);
 }
     
   </style>
@@ -970,6 +971,7 @@ document.getElementById("volumeSlider").oninput = (e) => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
