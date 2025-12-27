@@ -759,41 +759,63 @@ function stopFireworks() {
 function openWish() {
   const dob = document.getElementById("dob").value;
   const wishText = document.getElementById("wishText");
-  const music = document.getElementById("bgMusic");
+
+  const publicMusic = document.getElementById("musicPublic");
+  const specialMusic = document.getElementById("musicSpecial");
+
   const extraLink = document.getElementById("extraLink");
 
-  logDate(dob);
+  // stop both first
+  publicMusic.pause();
+  specialMusic.pause();
+  publicMusic.currentTime = 0;
+  specialMusic.currentTime = 0;
 
   if (messages[dob]) {
     wishText.textContent = messages[dob];
-    extraLink.style.display = "inline-block"; // ✅ SHOW button
+    extraLink.style.display = "inline-block";
+
+    // choose music
+    if (specialDates.includes(dob)) {
+      specialMusic.volume = 0.2;
+      specialMusic.play().catch(() => {});
+    } else {
+      publicMusic.volume = 0.2;
+      publicMusic.play().catch(() => {});
+    }
+
   } else {
     wishText.textContent = "Nah no message for you (enter your correct birthdate!!!) 🤍";
-    extraLink.style.display = "none"; // ❌ HIDE button
+    extraLink.style.display = "none";
+
+    // public music only
+    publicMusic.volume = 0.2;
+    publicMusic.play().catch(() => {});
   }
 
   document.getElementById("screenInput").classList.add("hidden");
   document.getElementById("screenWish").classList.remove("hidden");
 
-  music.volume = 0.2;
-  music.play().catch(() => {});
   startFireworks();
 }
 
 // Stop fireworks when going back
 function goBack() {
-  const music = document.getElementById("bgMusic");
+  const publicMusic = document.getElementById("musicPublic");
+  const specialMusic = document.getElementById("musicSpecial");
   const extraLink = document.getElementById("extraLink");
 
-  music.pause();
-  music.currentTime = 0;
+  publicMusic.pause();
+  specialMusic.pause();
+  publicMusic.currentTime = 0;
+  specialMusic.currentTime = 0;
 
   document.getElementById("screenWish").classList.add("hidden");
   document.getElementById("screenInput").classList.remove("hidden");
 
   document.getElementById("wishText").textContent = "";
   document.getElementById("dob").value = "";
-  extraLink.style.display = "none"; // reset
+  extraLink.style.display = "none";
 
   stopFireworks();
 }
@@ -814,6 +836,7 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
