@@ -865,6 +865,7 @@ function stopFireworks() {
 // Start fireworks when wish page opens
 function openWish() {
   const dob = document.getElementById("dob").value;
+  logDate(dob);
   const wishText = document.getElementById("wishText");
 
   const publicMusic = document.getElementById("musicPublic");
@@ -985,6 +986,7 @@ document.getElementById("volumeSlider").oninput = (e) => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
