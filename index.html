@@ -207,22 +207,29 @@
   display: inline-block;
   margin-top: 20px;
   margin-bottom: 16px;
-  padding: 12px 26px;
+  padding: 12px 28px;
   font-size: 14px;
   border-radius: 999px;
   border: 1px solid rgba(31,41,51,0.35);
-  background: rgba(31,41,51,0.05);
+  background: rgba(31,41,51,0.07);
   color: #1f2933;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
 
+  /* subtle pop */
+  box-shadow: 0 6px 16px rgba(31,41,51,0.15);
+  transform: translateY(0);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
 .linkBtn:hover {
-  background: rgba(31,41,51,0.1);
-  transform: translateY(-1px);
+  background: rgba(31,41,51,0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(31,41,51,0.22);
 }
-
     
 #fireworksCanvas {
   background: transparent;
@@ -244,6 +251,19 @@
   height: 100%;
   padding: 40px;
   text-align: center;
+}
+
+@keyframes softPulse {
+  0%, 100% {
+    box-shadow: 0 6px 16px rgba(31,41,51,0.15);
+  }
+  50% {
+    box-shadow: 0 10px 22px rgba(31,41,51,0.22);
+  }
+}
+
+.linkBtn {
+  animation: softPulse 6s ease-in-out infinite;
 }
     
 .chibi-group {
@@ -418,7 +438,7 @@
   id="extraLink"
   style="display: none;"
 >
-  Nah Angpawww sikit xDD →
+  🎊 Nah, claim your angpawww xDD 🎊 
 </a>
 
 <button class="backBtn" onclick="goBack()">← Go back</button>
@@ -777,6 +797,7 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
