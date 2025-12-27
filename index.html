@@ -312,82 +312,6 @@
   }
 }
 
-
-
-/* =========================
-   HORROR GLITCH CORE
-========================= */
-
-.glitch-core {
-  position: relative;
-  animation: core-flicker 6s infinite;
-}
-
-/* MULTI-LAYER GHOSTS */
-.glitch-core::before,
-.glitch-core::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.8;
-  white-space: pre-wrap;
-}
-
-/* RED CHANNEL */
-.glitch-core::before {
-  color: rgba(255, 40, 80, 0.8);
-  animation: red-tear 2.3s infinite linear;
-}
-
-/* BLUE CHANNEL */
-.glitch-core::after {
-  color: rgba(80, 160, 255, 0.8);
-  animation: blue-tear 1.7s infinite linear;
-}
-
-/* MAIN FLICKER */
-@keyframes core-flicker {
-  0%, 92%, 100% { opacity: 1; }
-  93% { opacity: 0.1; }
-  94% { opacity: 1; }
-  95% { opacity: 0.3; }
-  96% { opacity: 1; }
-}
-
-/* RED TEXT TEAR */
-@keyframes red-tear {
-  0% { transform: none; clip-path: inset(0 0 0 0); }
-  90% { transform: none; }
-  91% { transform: translate(-2px, -1px); clip-path: inset(10% 0 70% 0); }
-  92% { transform: translate(3px, 2px); clip-path: inset(40% 0 30% 0); }
-  93% { transform: none; clip-path: inset(0 0 0 0); }
-}
-
-/* BLUE TEXT SLICE */
-@keyframes blue-tear {
-  0% { transform: none; clip-path: inset(0 0 0 0); }
-  88% { transform: none; }
-  89% { transform: translate(2px, 0); clip-path: inset(0 0 60% 0); }
-  90% { transform: translate(-3px, 1px); clip-path: inset(50% 0 0 0); }
-  91% { transform: none; clip-path: inset(0 0 0 0); }
-}
-
-.glitch-flash {
-  position: fixed;
-  inset: 0;
-  background: black;
-  opacity: 0;
-  pointer-events: none;
-  animation: blackout 14s infinite;
-}
-
-@keyframes blackout {
-  0%, 97%, 100% { opacity: 0; }
-  98% { opacity: 0.85; }
-  99% { opacity: 0; }
-}
-
     
   </style>
 </head>
@@ -419,15 +343,11 @@
 
 <!-- SCREEN 2 --> 
 <div class="screen hidden" id="screenWish">
-
   <canvas id="fireworksCanvas"></canvas>
-
-  <!-- GLITCH BLACKOUT LAYER -->
-  <div class="glitch-flash"></div>
-
+  
   <div class="wish">
     <div class="letter">
-      <p id="wishText" class="glitch-core"></p>
+      <p id="wishText"></p>
       <div class="signature">— From Azreeq 🦆</div>
     </div>
   
@@ -557,7 +477,6 @@ kalau apa2 jadi, just bagitau aku, mungkin aku takleh tolong sangat, but i can b
 
     if (messages[dob]) {
       wishText.textContent = messages[dob];
-      wishText.setAttribute("data-text", messages[dob]);
     } else {
       wishText.textContent = "Nah no message for you (enter your correct birthdate!!!) 🤍";
     }
@@ -763,7 +682,6 @@ function openWish() {
   logDate(dob);
   if (messages[dob]) {
     wishText.textContent = messages[dob];
-    wishText.setAttribute("data-text", messages[dob]);
   } else {
     wishText.textContent = "Nah no message for you (enter your correct birthdate!!!)  🤍";
   }
@@ -809,7 +727,5 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
-
-
 
 
