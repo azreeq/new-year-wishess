@@ -131,23 +131,20 @@
   }
 
     /* Wish page */
-.wish {
-  position: relative;
-  z-index: 1;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  height: 100%;
-  padding-top: 80px;   /* 👈 THIS adds top spacing */
-  padding-bottom: 40px;
-  padding-left: 40px;
-  padding-right: 40px;
-
-  text-align: center;
-  animation: fadeUp 2s ease;
-}
+  .wish {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 650px;
+    padding: 50px;
+    text-align: center;
+    animation: fadeUp 2s ease;
+    background: transparent; /* IMPORTANT */
+  }
 
     @keyframes fadeUp {
       from {
@@ -934,6 +931,7 @@ document.getElementById("volumeSlider").oninput = (e) => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
