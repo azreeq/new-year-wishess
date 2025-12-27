@@ -131,20 +131,23 @@
   }
 
     /* Wish page */
-  .wish {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    max-width: 650px;
-    padding: 50px;
-    text-align: center;
-    animation: fadeUp 2s ease;
-    background: transparent; /* IMPORTANT */
-  }
+.wish {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 100%;
+  padding-top: 80px;   /* 👈 THIS adds top spacing */
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  text-align: center;
+  animation: fadeUp 2s ease;
+}
 
     @keyframes fadeUp {
       from {
@@ -253,13 +256,19 @@
 .wish {
   position: relative;
   z-index: 1;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+
   height: 100%;
-  padding: 40px;
+  padding-top: 80px;   /* 👈 THIS adds top spacing */
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+
   text-align: center;
+  animation: fadeUp 2s ease;
 }
 
 @keyframes softPulse {
@@ -405,17 +414,19 @@
 .music-control {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 28px;
+  gap: 10px;
+
+  margin-top: 16px;    /* 👈 reduced */
+  margin-bottom: 8px;  /* 👈 reduced */
+
   opacity: 0.75;
 }
-
 .music-control button {
   background: #B8A68F; /* card color */
   border: none;
   border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 6px 10px;
+  font-size: 13px;
   cursor: pointer;
   color: #1f2933;
   box-shadow: 0 4px 12px rgba(0,0,0,0.18);
@@ -923,6 +934,7 @@ document.getElementById("volumeSlider").oninput = (e) => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
