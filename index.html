@@ -312,6 +312,45 @@
   }
 }
 
+.soft-jitter {
+  position: relative;
+  animation: micro-jitter 20s infinite;
+}
+
+@keyframes micro-jitter {
+  0%, 96%, 100% {
+    transform: translate(0, 0);
+  }
+  97% {
+    transform: translate(1px, 0);
+  }
+  98% {
+    transform: translate(-1px, 0);
+  }
+  99% {
+    transform: translate(0, 1px);
+  }
+}
+
+
+.breathing-bg {
+  background: linear-gradient(
+    120deg,
+    #E4EAEB,
+    #A1AD98
+  );
+  animation: background-breathe 40s ease-in-out infinite;
+}
+
+@keyframes background-breathe {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.97);
+  }
+}
+
     
   </style>
 </head>
@@ -342,12 +381,12 @@
 </div>
 
 <!-- SCREEN 2 --> 
-<div class="screen hidden" id="screenWish">
+<div class="screen hidden breathing-bg" id="screenWish">
   <canvas id="fireworksCanvas"></canvas>
   
   <div class="wish">
     <div class="letter">
-      <p id="wishText"></p>
+      <p id="wishText" class="soft-jitter"></p>
       <div class="signature">— From Azreeq 🦆</div>
     </div>
   
@@ -727,5 +766,6 @@ function logDate(dob) {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
