@@ -450,13 +450,14 @@
 
 .cat-bonk-wish {
   position: absolute;
-  top: -42px;       /* overlap amount */
-  left: 24px;       /* where it bangs the paper */
-  width: 64px;
+  top: -32px;
+  right: 10px;
+  width: 60px;
   z-index: 3;
   pointer-events: none;
+  transform: rotate(5deg);
 }
-
+    
 @keyframes bonk {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(6px); }
@@ -977,6 +978,7 @@ document.getElementById("volumeSlider").oninput = (e) => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
