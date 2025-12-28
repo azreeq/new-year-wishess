@@ -479,6 +479,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;   /* 👈 THIS fixes vertical & horizontal centering */
+  position: relative;
 }
 
 /* Video replaces letter, same footprint */
@@ -525,9 +527,24 @@
 }
 
 /* Hidden but keeps layout */
-.fade-hidden {
+.fade {
+  transition: opacity 0.5s ease;
+}
+
+.fade.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+.fade.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#letterSection,
+#videoSection {
+  width: 100%;
+  max-width: 820px;
 }
     
   </style>
@@ -566,7 +583,7 @@
   <div class="content-area">
   
     <!-- LETTER -->
-   <div class="letter-wrapper fade-section" id="letterSection">
+   <div class="letter-wrapper fade visible" id="letterSection">
       <img src="left side.gif" class="cat-bonk-wish">
       <div class="letter">
         <p id="wishText" class="soft-jitter"></p>
@@ -575,7 +592,7 @@
     </div>
   
     <!-- VIDEO -->
-    <div class="video-wrapper fade-section fade-hidden" id="videoSection">
+    <div class="video-wrapper fade hidden" id="videoSection">
       <video
         src="your-video.mp4"
         controls
@@ -1074,16 +1091,12 @@ watchBtn.onclick = () => {
   const video = videoSection.querySelector("video");
 
   // fade letter out
-  letterSection.classList.add("fade-hidden");
+  letterSection.classList.remove("visible");
+  letterSection.classList.add("hidden");
 
-  // after fade, show video
-  setTimeout(() => {
-    videoSection.classList.remove("fade-hidden");
-  }, 300);
-
-  // swap buttons
-  watchBtn.classList.add("hidden");
-  backToLetterBtn.classList.remove("hidden");
+  // fade video in
+  videoSection.classList.remove("hidden");
+  videoSection.classList.add("visible");
 
   // pause music
   if (currentMusic && !currentMusic.paused) {
@@ -1099,20 +1112,16 @@ backToLetterBtn.onclick = () => {
   const video = videoSection.querySelector("video");
 
   // fade video out
-  videoSection.classList.add("fade-hidden");
+  videoSection.classList.remove("visible");
+  videoSection.classList.add("hidden");
+
+  // fade letter in
+  letterSection.classList.remove("hidden");
+  letterSection.classList.add("visible");
 
   // stop video
   video.pause();
   video.currentTime = 0;
-
-  // after fade, show letter
-  setTimeout(() => {
-    letterSection.classList.remove("fade-hidden");
-  }, 300);
-
-  // swap buttons
-  backToLetterBtn.classList.add("hidden");
-  watchBtn.classList.remove("hidden");
 
   // resume music
   if (currentMusic) {
@@ -1125,6 +1134,7 @@ backToLetterBtn.onclick = () => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
