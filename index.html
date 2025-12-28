@@ -516,11 +516,6 @@
   box-shadow: none;
 }
 
-/* Visibility toggle */
-.hidden {
-  display: none;
-}
-
 .fade-section {
   transition: opacity 0.6s ease;
   opacity: 1;
@@ -528,6 +523,7 @@
 
 /* Hidden but keeps layout */
 .fade {
+  opacity: 1;
   transition: opacity 0.5s ease;
 }
 
@@ -1098,6 +1094,10 @@ watchBtn.onclick = () => {
   videoSection.classList.remove("hidden");
   videoSection.classList.add("visible");
 
+  // swap buttons
+  watchBtn.classList.add("hidden");
+  backToLetterBtn.classList.remove("hidden");
+
   // pause music
   if (currentMusic && !currentMusic.paused) {
     currentMusic.pause();
@@ -1107,7 +1107,7 @@ watchBtn.onclick = () => {
   video.currentTime = 0;
   video.play().catch(() => {});
 };
-
+  
 backToLetterBtn.onclick = () => {
   const video = videoSection.querySelector("video");
 
@@ -1119,6 +1119,10 @@ backToLetterBtn.onclick = () => {
   letterSection.classList.remove("hidden");
   letterSection.classList.add("visible");
 
+  // swap buttons back
+  backToLetterBtn.classList.add("hidden");
+  watchBtn.classList.remove("hidden");
+
   // stop video
   video.pause();
   video.currentTime = 0;
@@ -1129,11 +1133,13 @@ backToLetterBtn.onclick = () => {
   }
 };
 
+
 </script>
 
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
