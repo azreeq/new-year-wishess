@@ -1090,13 +1090,17 @@ const backToLetterBtn = document.getElementById("backToLetterBtn");
 watchBtn.onclick = () => {
   const video = videoSection.querySelector("video");
 
-  // fade letter out
+  // letter → hide
   letterSection.classList.remove("visible");
   letterSection.classList.add("hidden");
 
-  // fade video in
+  // video → show
   videoSection.classList.remove("hidden");
   videoSection.classList.add("visible");
+
+  // swap buttons
+  watchBtn.classList.add("hidden");
+  backToLetterBtn.classList.remove("hidden");
 
   // pause music
   if (currentMusic && !currentMusic.paused) {
@@ -1111,13 +1115,17 @@ watchBtn.onclick = () => {
 backToLetterBtn.onclick = () => {
   const video = videoSection.querySelector("video");
 
-  // fade video out
+  // video → hide
   videoSection.classList.remove("visible");
   videoSection.classList.add("hidden");
 
-  // fade letter in
+  // letter → show
   letterSection.classList.remove("hidden");
   letterSection.classList.add("visible");
+
+  // swap buttons
+  backToLetterBtn.classList.add("hidden");
+  watchBtn.classList.remove("hidden");
 
   // stop video
   video.pause();
@@ -1134,6 +1142,7 @@ backToLetterBtn.onclick = () => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
