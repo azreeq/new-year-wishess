@@ -586,6 +586,11 @@
   <button class="linkBtn ghost" id="watchVideoBtn">
     ▶ Watch video
   </button>
+
+  <button class="linkBtn ghost hidden" id="backToLetterBtn">
+  📜 Back to letter
+</button>
+  
 </div>
 
 <div class="music-control" id="musicControl">
@@ -1052,11 +1057,16 @@ document.getElementById("volumeSlider").oninput = (e) => {
 const watchBtn = document.getElementById("watchVideoBtn");
 const letterSection = document.getElementById("letterSection");
 const videoSection = document.getElementById("videoSection");
+const backToLetterBtn = document.getElementById("backToLetterBtn");
 
 watchBtn.onclick = () => {
   // hide letter, show video
   letterSection.classList.add("hidden");
   videoSection.classList.remove("hidden");
+
+  // swap buttons
+  watchBtn.classList.add("hidden");
+  backToLetterBtn.classList.remove("hidden");
 
   const video = videoSection.querySelector("video");
 
@@ -1065,14 +1075,35 @@ watchBtn.onclick = () => {
     currentMusic.pause();
   }
 
-  // auto play video
+  // autoplay video
   video.currentTime = 0;
-  video.muted = false; // or true if browser blocks autoplay
   video.play().catch(() => {});
 };
-  
+
+backToLetterBtn.onclick = () => {
+  const video = videoSection.querySelector("video");
+
+  // stop video
+  video.pause();
+  video.currentTime = 0;
+
+  // hide video, show letter
+  videoSection.classList.add("hidden");
+  letterSection.classList.remove("hidden");
+
+  // swap buttons back
+  backToLetterBtn.classList.add("hidden");
+  watchBtn.classList.remove("hidden");
+
+  // resume music
+  if (currentMusic) {
+    currentMusic.play().catch(() => {});
+  }
+};
+
 </script>
 
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
