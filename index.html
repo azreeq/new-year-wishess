@@ -524,9 +524,16 @@
 /* Hidden but keeps layout */
 .fade {
   opacity: 1;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.6s ease;
+  pointer-events: auto;
 }
 
+/* Hidden state (still takes space, so center stays correct) */
+.fade.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+    
 .fade.hidden {
   opacity: 0;
   pointer-events: none;
@@ -579,7 +586,7 @@
   <div class="content-area">
   
     <!-- LETTER -->
-   <div class="letter-wrapper fade visible" id="letterSection">
+   <div class="letter-wrapper fade" id="letterSection">
       <img src="left side.gif" class="cat-bonk-wish">
       <div class="letter">
         <p id="wishText" class="soft-jitter"></p>
@@ -588,7 +595,7 @@
     </div>
   
     <!-- VIDEO -->
-    <div class="video-wrapper fade hidden" id="videoSection">
+    <div class="video-wrapper fade is-hidden" id="videoSection">
       <video
         src="your-video.mp4"
         controls
@@ -1078,25 +1085,25 @@ document.getElementById("volumeSlider").oninput = (e) => {
   music.volume = e.target.value;
 };
 
-const watchBtn = document.getElementById("watchVideoBtn");
 const letterSection = document.getElementById("letterSection");
 const videoSection = document.getElementById("videoSection");
 const backToLetterBtn = document.getElementById("backToLetterBtn");
+const watchBtn = document.getElementById("watchVideoBtn");
+const backBtn = document.getElementById("backToLetterBtn");
+const letter = document.getElementById("letterSection");
+const videoWrap = document.getElementById("videoSection");
+const video = videoWrap.querySelector("video");
 
 watchBtn.onclick = () => {
-  const video = videoSection.querySelector("video");
-
   // fade letter out
-  letterSection.classList.remove("visible");
-  letterSection.classList.add("hidden");
+  letter.classList.add("is-hidden");
 
   // fade video in
-  videoSection.classList.remove("hidden");
-  videoSection.classList.add("visible");
+  videoWrap.classList.remove("is-hidden");
 
   // swap buttons
-  watchBtn.classList.add("hidden");
-  backToLetterBtn.classList.remove("hidden");
+  watchBtn.classList.add("is-hidden");
+  backBtn.classList.remove("is-hidden");
 
   // pause music
   if (currentMusic && !currentMusic.paused) {
@@ -1107,21 +1114,17 @@ watchBtn.onclick = () => {
   video.currentTime = 0;
   video.play().catch(() => {});
 };
-  
-backToLetterBtn.onclick = () => {
-  const video = videoSection.querySelector("video");
 
+backBtn.onclick = () => {
   // fade video out
-  videoSection.classList.remove("visible");
-  videoSection.classList.add("hidden");
+  videoWrap.classList.add("is-hidden");
 
   // fade letter in
-  letterSection.classList.remove("hidden");
-  letterSection.classList.add("visible");
+  letter.classList.remove("is-hidden");
 
-  // swap buttons back
-  backToLetterBtn.classList.add("hidden");
-  watchBtn.classList.remove("hidden");
+  // swap buttons
+  backBtn.classList.add("is-hidden");
+  watchBtn.classList.remove("is-hidden");
 
   // stop video
   video.pause();
@@ -1134,11 +1137,13 @@ backToLetterBtn.onclick = () => {
 };
 
 
+
 </script>
 
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
