@@ -27,11 +27,6 @@
     background: transparent; /* IMPORTANT */
   }
 
-    .hidden {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-20px);
-    }
 
   .card {
     background: #B8A68F;
@@ -534,15 +529,6 @@
   pointer-events: none;
 }
     
-.fade.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.fade.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
 
 #letterSection,
 #videoSection {
@@ -614,11 +600,11 @@
   🎊 Claim your angpaw or its gonna be wasted (tng sucks) xDD 🎊 
 </a>
 
-  <button class="linkBtn ghost" id="watchVideoBtn">
+  <button class="linkBtn ghost fade" id="watchVideoBtn">
     ▶ Watch video
   </button>
 
-  <button class="linkBtn ghost hidden" id="backToLetterBtn">
+  <button class="linkBtn ghost fade is-hidden" id="backToLetterBtn">
   📜 Back to letter
 </button>
   
@@ -1084,10 +1070,6 @@ document.getElementById("volumeSlider").oninput = (e) => {
   const music = getCurrentMusic();
   music.volume = e.target.value;
 };
-
-const letterSection = document.getElementById("letterSection");
-const videoSection = document.getElementById("videoSection");
-const backToLetterBtn = document.getElementById("backToLetterBtn");
 const watchBtn = document.getElementById("watchVideoBtn");
 const backBtn = document.getElementById("backToLetterBtn");
 const letter = document.getElementById("letterSection");
@@ -1095,46 +1077,35 @@ const videoWrap = document.getElementById("videoSection");
 const video = videoWrap.querySelector("video");
 
 watchBtn.onclick = () => {
-  // fade letter out
   letter.classList.add("is-hidden");
-
-  // fade video in
   videoWrap.classList.remove("is-hidden");
 
-  // swap buttons
   watchBtn.classList.add("is-hidden");
   backBtn.classList.remove("is-hidden");
 
-  // pause music
   if (currentMusic && !currentMusic.paused) {
     currentMusic.pause();
   }
 
-  // play video
   video.currentTime = 0;
   video.play().catch(() => {});
 };
 
 backBtn.onclick = () => {
-  // fade video out
   videoWrap.classList.add("is-hidden");
-
-  // fade letter in
   letter.classList.remove("is-hidden");
 
-  // swap buttons
   backBtn.classList.add("is-hidden");
   watchBtn.classList.remove("is-hidden");
 
-  // stop video
   video.pause();
   video.currentTime = 0;
 
-  // resume music
   if (currentMusic) {
     currentMusic.play().catch(() => {});
   }
 };
+
 
 
 
@@ -1143,6 +1114,7 @@ backBtn.onclick = () => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
 
 
 
