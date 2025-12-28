@@ -485,12 +485,18 @@
 .video-wrapper {
   max-width: 820px;
   width: 100%;
+  aspect-ratio: 16 / 9;   /* adjust if your video is different */
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
 }
 
 .video-wrapper video {
   width: 100%;
+  height: 100%;
+  object-fit: cover;   /* 🔑 removes black bars */
+  display: block;
   border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
 }
 
 /* Button row */
@@ -981,6 +987,11 @@ function goBack() {
   const publicMusic = document.getElementById("musicPublic");
   const specialMusic = document.getElementById("musicSpecial");
   const extraLink = document.getElementById("extraLink");
+  const video = document.querySelector("#videoSection video");
+  if (video) {
+    video.pause();
+    video.currentTime = 0;
+  }
 
   publicMusic.pause();
   specialMusic.pause();
@@ -1043,8 +1054,21 @@ const letterSection = document.getElementById("letterSection");
 const videoSection = document.getElementById("videoSection");
 
 watchBtn.onclick = () => {
+  // hide letter, show video
   letterSection.classList.add("hidden");
   videoSection.classList.remove("hidden");
+
+  const video = videoSection.querySelector("video");
+
+  // pause background music
+  if (currentMusic && !currentMusic.paused) {
+    currentMusic.pause();
+  }
+
+  // auto play video
+  video.currentTime = 0;
+  video.muted = false; // or true if browser blocks autoplay
+  video.play().catch(() => {});
 };
   
 </script>
@@ -1052,3 +1076,4 @@ watchBtn.onclick = () => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
+
