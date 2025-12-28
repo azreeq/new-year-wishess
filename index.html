@@ -140,6 +140,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;        /* true horizontal center */
+    justify-content: center;    /* vertical center */
   
     height: 100%;
     padding-top: 40px;
@@ -263,7 +264,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;        /* true horizontal center */
-
+    justify-content: center;    /* vertical center */
+  
     height: 100%;
     padding-top: 40px;
     padding-bottom: 40px;
@@ -472,70 +474,45 @@
   justify-content: center;   /* 👈 forces exact center */
 }
 
-.content-switcher {
-  margin-top: 22px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
-
-/* Buttons */
-.switch-btn {
-  background: rgba(184,166,143,0.85);
-  border: 1px solid rgba(0,0,0,0.15);
-  border-radius: 999px;
-  padding: 10px 22px;
-  font-size: 14px;
-  cursor: pointer;
-  color: #1f2933;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-  transition: all 0.25s ease;
-}
-
-.switch-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px rgba(0,0,0,0.25);
-}
-
-/* Video container */
-.video-wrapper {
+/* Keeps letter + video aligned */
+.content-area {
   width: 100%;
-  max-width: 520px;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  display: flex;
+  justify-content: center;
+}
+
+/* Video replaces letter, same footprint */
+.video-wrapper {
+  max-width: 820px;
+  width: 100%;
 }
 
 .video-wrapper video {
   width: 100%;
-  display: block;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
 }
 
-/* Shared hidden state */
+/* Button row */
+.action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Secondary button style */
+.linkBtn.ghost {
+  background: transparent;
+  border: 1px dashed rgba(31,41,51,0.35);
+  box-shadow: none;
+}
+
+/* Visibility toggle */
 .hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
+  display: none;
 }
 
-.wish-inner {
-  width: 100%;
-  max-width: 820px;     /* same as letter */
-  display: flex;
-  flex-direction: column;
-  align-items: center;  /* 🔥 ONE CENTER AXIS */
-  gap: 16px;            /* consistent spacing */
-}
-
-.content-switcher {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+    
   </style>
 </head>
 <body>
@@ -568,32 +545,28 @@
 <div class="screen hidden breathing-bg" id="screenWish">
   <canvas id="fireworksCanvas"></canvas>
   
-<div class="wish">
-
-  <div class="wish-inner">
-
+  <div class="wish">
+  <div class="content-area">
+  
     <!-- LETTER -->
-    <div class="letter-wrapper">
+    <div class="letter-wrapper" id="letterSection">
       <img src="left side.gif" class="cat-bonk-wish">
       <div class="letter">
         <p id="wishText" class="soft-jitter"></p>
-        <div class="signature">
-          — From Azreeq 🦆 (might be too early for new year but its better than never)
-        </div>
+        <div class="signature">— From Azreeq 🦆</div>
       </div>
     </div>
-
-    <!-- SWITCHER -->
-    <div class="content-switcher">
-      <button class="switch-btn" id="showVideoBtn">▶ Watch something</button>
-      <button class="switch-btn hidden" id="showLetterBtn">📜 Read letter again</button>
-
-      <div class="video-wrapper hidden" id="videoWrapper">
-        <video src="your-video.mp4" loop playsinline></video>
-      </div>
-    </div>
-
   
+    <!-- VIDEO -->
+    <div class="video-wrapper hidden" id="videoSection">
+      <video
+        src="your-video.mp4"
+        controls
+        playsinline
+      ></video>
+    </div>
+</div>
+<div class="action-row">
     <a
   href="https://cdn.tngdigital.com.my/s/oauth2/index.html#/moneypacket?p=6ea527607708721ee0b869c079a24c5a3c45413ee36ed198ad3274023a785c50adc8b822c3c1d5a2914fcc76c3f8bcf871d156973399497e2a5d8625d61d81bb22cf0a528a90a1dd71cc63dccc5abe83&v=2"
   target="_blank"
@@ -603,6 +576,11 @@
 >
   🎊 Claim your angpaw or its gonna be wasted (tng sucks) xDD 🎊 
 </a>
+
+  <button class="linkBtn ghost" id="watchVideoBtn">
+    ▶ Watch video
+  </button>
+</div>
 
 <div class="music-control" id="musicControl">
   <button id="playPauseBtn">⏸</button>
@@ -1060,37 +1038,17 @@ document.getElementById("volumeSlider").oninput = (e) => {
   music.volume = e.target.value;
 };
 
-const showVideoBtn = document.getElementById("showVideoBtn");
-const showLetterBtn = document.getElementById("showLetterBtn");
-const videoWrapper = document.getElementById("videoWrapper");
-const letterWrapper = document.querySelector(".letter-wrapper");
-const videoEl = videoWrapper.querySelector("video");
+const watchBtn = document.getElementById("watchVideoBtn");
+const letterSection = document.getElementById("letterSection");
+const videoSection = document.getElementById("videoSection");
 
-showVideoBtn.onclick = () => {
-  letterWrapper.classList.add("hidden");
-  videoWrapper.classList.remove("hidden");
-
-  showVideoBtn.classList.add("hidden");
-  showLetterBtn.classList.remove("hidden");
-
-  videoEl.play().catch(() => {});
+watchBtn.onclick = () => {
+  letterSection.classList.add("hidden");
+  videoSection.classList.remove("hidden");
 };
-
-showLetterBtn.onclick = () => {
-  videoWrapper.classList.add("hidden");
-  letterWrapper.classList.remove("hidden");
-
-  showLetterBtn.classList.add("hidden");
-  showVideoBtn.classList.remove("hidden");
-
-  videoEl.pause();
-};
-
-  
   
 </script>
 
 <script src="butterflies.js" defer></script>
 </body>
 </html>
-
