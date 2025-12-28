@@ -503,8 +503,7 @@
 .action-row {
   display: flex;
   gap: 12px;
-  justify-content: center;
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 /* Secondary button style */
@@ -519,20 +518,6 @@
   display: none;
 }
 
-.fade {
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
-}
-
-.fade.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
     
   </style>
 </head>
@@ -569,28 +554,24 @@
   <div class="wish">
   <div class="content-area">
   
-<!-- LETTER -->
-<div id="letterSection" class="fade visible">
-  <div class="letter-wrapper">
-    <img src="left side.gif" class="cat-bonk-wish">
-    <div class="letter">
-      <p id="wishText" class="soft-jitter"></p>
-      <div class="signature">— From Azreeq 🦆</div>
+    <!-- LETTER -->
+    <div class="letter-wrapper" id="letterSection">
+      <img src="left side.gif" class="cat-bonk-wish">
+      <div class="letter">
+        <p id="wishText" class="soft-jitter"></p>
+        <div class="signature">— From Azreeq 🦆</div>
+      </div>
     </div>
-  </div>
+  
+    <!-- VIDEO -->
+    <div class="video-wrapper hidden" id="videoSection">
+      <video
+        src="your-video.mp4"
+        controls
+        playsinline
+      ></video>
+    </div>
 </div>
-
-<!-- VIDEO -->
-<div id="videoSection" class="fade hidden">
-  <div class="video-wrapper">
-    <video id="wishVideo" src="your-video.mp4" playsinline></video>
-  </div>
-
-  <button class="backBtn" id="backToLetterBtn">
-    📜 Back to letter
-  </button>
-</div>
-
 <div class="action-row">
     <a
   href="https://cdn.tngdigital.com.my/s/oauth2/index.html#/moneypacket?p=6ea527607708721ee0b869c079a24c5a3c45413ee36ed198ad3274023a785c50adc8b822c3c1d5a2914fcc76c3f8bcf871d156973399497e2a5d8625d61d81bb22cf0a528a90a1dd71cc63dccc5abe83&v=2"
@@ -1072,52 +1053,22 @@ const watchBtn = document.getElementById("watchVideoBtn");
 const letterSection = document.getElementById("letterSection");
 const videoSection = document.getElementById("videoSection");
 
-
-const letterSection = document.getElementById("letterSection");
-const videoSection = document.getElementById("videoSection");
-const watchBtn = document.getElementById("watchVideoBtn");
-const backBtnVideo = document.getElementById("backToLetterBtn");
-const video = document.getElementById("wishVideo");
-
-let pausedMusic = null;
-
-backBtnVideo.onclick = () => {
-  video.pause();
-  video.currentTime = 0;
-
-  videoSection.classList.remove("visible");
-  videoSection.classList.add("hidden");
-
-  setTimeout(() => {
-    letterSection.classList.remove("hidden");
-    letterSection.classList.add("visible");
-
-    if (pausedMusic) {
-      pausedMusic.play().catch(() => {});
-    }
-  }, 400);
-};
-
 watchBtn.onclick = () => {
-  // remember current music
-  pausedMusic = getCurrentMusic();
-  if (pausedMusic && !pausedMusic.paused) pausedMusic.pause();
-
-  // swap views
-  letterSection.classList.remove("visible");
+  // hide letter, show video
   letterSection.classList.add("hidden");
+  videoSection.classList.remove("hidden");
 
-  setTimeout(() => {
-    videoSection.classList.remove("hidden");
-    videoSection.classList.add("visible");
+  const video = videoSection.querySelector("video");
 
-    video.currentTime = 0;
-    video.play().catch(() => {});
-  }, 400);
-};
+  // pause background music
+  if (currentMusic && !currentMusic.paused) {
+    currentMusic.pause();
+  }
 
-video.onended = () => {
-  backBtnVideo.click();
+  // auto play video
+  video.currentTime = 0;
+  video.muted = false; // or true if browser blocks autoplay
+  video.play().catch(() => {});
 };
   
 </script>
@@ -1125,5 +1076,3 @@ video.onended = () => {
 <script src="butterflies.js" defer></script>
 </body>
 </html>
-
-
